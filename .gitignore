@@ -1,3 +1,7 @@
 repo/
 
 .DS_Store
+
+*.pyc
+
+.env
