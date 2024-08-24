@@ -68,6 +68,7 @@ def main():
     push_thread.start()
 
     for cmd in remove_cmds:
+        print(f"cmd is {cmd}")
         res, err = run(cmd)
         log.info(res)
         log.error(err)
