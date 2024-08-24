@@ -26,8 +26,8 @@ jobs:
 
       matrix:
         GIT_REPO:
-          - minionFame/___time_2024_past
-          # - minionFame/_time_2024_past
+          # - minionFame/___time_2024_past
+          - minionFame/_time_2024_past
           # - minionFame/__time_2024_past
           # - fun-fame/__time_2024_past
           # - fun-fame/__time_2024_past
@@ -55,7 +55,8 @@ jobs:
       - name: Create repo if necessary
         continue-on-error: true
         run: |
-          gh repo create ${{env.GIT_REPO}} --private -d "Just catching commits in Time" -l MIT
+          # gh repo delete ${{env.GIT_REPO}} --yes
+          gh repo create ${{env.GIT_REPO}} --private -d "Just catching commits in Time in past"
 
       - name: Run time cacher for ${{env.GIT_REPO}}
         run: |
