@@ -26,21 +26,19 @@ jobs:
 
       matrix:
         GIT_REPO:
-          - Nasfame/___time_2023
-          - Nasfame/___time
-          - funFame/_time
-          - funFame/__time
-          - funFame/_time_2023
-          - funFame/__time_2023
+          - minionFame/___time_2024
+          - minionFame/_time_2024
+          
           
 
     env:
       GIT_PASS: ${{ secrets.GIT_PASS }}
+      GH_TOKEN: ${{secrets.GIT_PASS}}
       GIT_USERNAME: Nasfame
-      GIT_EMAIL: laciferin@gmail.com
+      GIT_EMAIL: laciferin@proton.me
       GIT_USER: Hiro
       GIT_REPO: ${{ matrix.GIT_REPO }}
-      NO_OF_COMMITS: 200
+      NO_OF_COMMITS: 20
       SLEEP_TIME: 1
 
     steps:
@@ -50,6 +48,13 @@ jobs:
         with:
           python-version: "3.10"
       #          cache: 'pip'
+
+      - name: Create repo if necessary
+        continue-on-error: true
+        run: |
+          gh repo create ${{env.GIT_REPO}} --private -d "Just catching commits in Time" -l MIT 
+          
+
 
       - name: Run time cacher for ${{env.GIT_REPO}}
         run: |
