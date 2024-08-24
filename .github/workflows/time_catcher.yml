@@ -2,15 +2,15 @@ name: Time Catcher
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
     tags:
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
 
   workflow_dispatch:
 
   schedule:
-    - cron: '* */1 * * *'
+    - cron: "* */1 * * *"
 
 concurrency:
   group: time-catcher
@@ -28,18 +28,16 @@ jobs:
         GIT_REPO:
           - minionFame/___time_2024
           - minionFame/_time_2024
-          
-          
 
     env:
       GIT_PASS: ${{ secrets.GIT_PASS }}
       GH_TOKEN: ${{secrets.GIT_PASS}}
       GIT_USERNAME: Nasfame
-      GIT_EMAIL: laciferin@proton.me
+      GIT_EMAIL: laciferin2024@protonmail.com
       GIT_USER: Hiro
       GIT_REPO: ${{ matrix.GIT_REPO }}
-      NO_OF_COMMITS: 20
-      SLEEP_TIME: 1
+      NO_OF_COMMITS: 4
+      SLEEP_TIME: 4
 
     steps:
       - uses: actions/checkout@v3
@@ -52,9 +50,7 @@ jobs:
       - name: Create repo if necessary
         continue-on-error: true
         run: |
-          gh repo create ${{env.GIT_REPO}} --private -d "Just catching commits in Time" -l MIT 
-          
-
+          gh repo create ${{env.GIT_REPO}} --private -d "Just catching commits in Time" -l MIT
 
       - name: Run time cacher for ${{env.GIT_REPO}}
         run: |
