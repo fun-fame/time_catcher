@@ -42,7 +42,7 @@ jobs:
       GIT_REPO: ${{ matrix.GIT_REPO }}
       NO_OF_COMMITS: 10
       SLEEP_TIME: 10
-      GIT_COMMIT_ARGS: '--date "96 days ago"'
+      GIT_COMMIT_ARGS: '--date="96 days ago"'
 
     steps:
       - uses: actions/checkout@v3
