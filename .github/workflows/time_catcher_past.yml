@@ -27,8 +27,8 @@ jobs:
       matrix:
         GIT_REPO:
           # - minionFame/___time_2024_past
-          - minionFame/_time_2024_past
-          # - minionFame/__time_2024_past
+          # - minionFame/_time_2024_past
+          - minionFame/__time_2024_past
           # - fun-fame/__time_2024_past
           # - fun-fame/__time_2024_past
           # - fun-fame/_time_2024_past
