@@ -86,7 +86,7 @@ def main():
 
         commands = [
             ["git", "add", "time.txt"],
-            ["git", "commit",GIT_COMMIT_ARGS , "-m", commit_msg],
+            ["git", "commit" , "-m", commit_msg, GIT_COMMIT_ARGS],
         ]
 
         for cmd in commands:
