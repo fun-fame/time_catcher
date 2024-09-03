@@ -11,7 +11,7 @@ GIT_USER: str = os.environ.get("GIT_USER", "Hiro").strip()
 GIT_USERNAME: str = os.environ.get("GIT_USERNAME", "Nasfame").strip()  # u can set what ever u want
 GIT_EMAIL: str = os.environ.get("GIT_EMAIL", "laciferin@gmail.com").strip()
 
-GIT_COMMIT_ARGS: str = os.environ.get("GIT_COMMIT_ARGS", None).strip()
+GIT_COMMIT_ARGS: str = os.environ.get("GIT_COMMIT_ARGS", "").strip()
 
 
 if len(REPO.split("/")) == 1:
