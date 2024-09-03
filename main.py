@@ -59,7 +59,7 @@ def main():
         ["rm", "-rf", "requirements.txt"],
         ["rm", "-rf", "main.py"],
         ["git", "add", "."],
-        ["git", "commit","-m", "removed unnecessary files", GIT_COMMIT_ARGS]
+        ["git", "commit",GIT_COMMIT_ARGS ,"-m", "removed unnecessary files"]
     ]
 
     print("cleaning unnecessary files")
