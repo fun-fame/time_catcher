@@ -29,9 +29,9 @@ jobs:
           - minionFame/___time_2024_past
           - minionFame/_time_2024_past
           - minionFame/__time_2024_past
-          # - fun-fame/__time_2024_past
-          # - fun-fame/__time_2024_past
-          # - fun-fame/_time_2024_past
+          - fun-fame/__time_2024_past
+          - fun-fame/__time_2024_past
+          - fun-fame/_time_2024_past
 
     env:
       GIT_PASS: ${{ secrets.GIT_PASS }}
