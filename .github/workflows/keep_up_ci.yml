@@ -5,11 +5,10 @@ name: Keep the CI on
 on:
   push:
     paths:
-      - '.github/*'
+      - ".github/*"
   workflow_dispatch:
   schedule:
-    - cron: '1 1 */10 * *'
-
+    - cron: "1 1 */10 * *"
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -18,7 +17,6 @@ concurrency:
 permissions:
   actions: write
   contents: write
-
 
 jobs:
   keep-up-cron:
@@ -38,29 +36,26 @@ jobs:
       - name: Git config
         run: |
           git config --global user.name Nasfame
-          git config --global user.email laciferin@proton.me
+          git config --global user.email laciferin2024@protonmail.com
 
       - name: Add File
         run: |
-         date +'%d-%m-%y %H:%M' > date.txt
+          date +'%d-%m-%y %H:%M' > date.txt
 
       - uses: stefanzweifel/git-auto-commit-action@v5
         id: auto-commit
         with:
-         commit_message: Date By Time Catcher
-         commit_options: '--no-verify --signoff'
-         add_options: '-u'
-         branch: 'cron/date'
-         create_branch: true
-         push_options: --force
+          commit_message: Date By Time Catcher
+          commit_options: "--no-verify --signoff"
+          add_options: "-u"
+          branch: "cron/date"
+          create_branch: true
+          push_options: --force
 
       - name: "Run if changes have been detected"
         if: steps.auto-commit.outputs.changes_detected == 'true'
         run: echo "Changes!"
-  
+
       - name: "Run if no changes have been detected"
         if: steps.auto-commit.outputs.changes_detected == 'false'
         run: echo "No Changes!"
-
-
-          
