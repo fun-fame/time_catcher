@@ -30,7 +30,6 @@ jobs:
           - minionFame/_time_2024_past
           - minionFame/__time_2024_past
           - fun-fame/__time_2024_past
-          - fun-fame/__time_2024_past
           - fun-fame/_time_2024_past
 
     env:
