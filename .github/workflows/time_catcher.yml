@@ -3,10 +3,8 @@ name: Time Catcher
 on:
   push:
     branches: ["main"]
-    branches: ["main"]
     tags:
   pull_request:
-    branches: ["main"]
     branches: ["main"]
 
   workflow_dispatch:
