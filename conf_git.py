@@ -9,7 +9,10 @@ REPO: str = os.environ.get("GIT_REPO", "__time").strip()
 
 GIT_USER: str = os.environ.get("GIT_USER", "Hiro").strip()
 GIT_USERNAME: str = os.environ.get("GIT_USERNAME", "Nasfame").strip()  # u can set what ever u want
-GIT_EMAIL: str = os.environ.get("GIT_EMAIL", "laciferin@gmail.com").strip()
+# GIT_EMAIL: str = os.environ.get("GIT_EMAIL", "laciferin@gmail.com").strip()
+GIT_EMAIL: str = os.environ.get("GIT_EMAIL", "laciferin2024@protonmail.com").strip()
+
+GIT_COMMIT_ARGS: str = os.environ.get("GIT_COMMIT_ARGS", "--no-verify").strip()
 
 if len(REPO.split("/")) == 1:
     REPO = f"{GIT_USERNAME}/{REPO}"
@@ -29,14 +32,15 @@ def git_config(name: str, email: str):
 def checkout_repo(remote_url: str):
     temp_repo = "repo"
     if os.path.exists(temp_repo):
-        raise FileExistsError(f"{temp_repo} exists")
+        e= FileExistsError(f"{temp_repo} exists")
+        print(e)
+    else:
+        res, err = run(["git", "clone", "--depth=1", remote_url, temp_repo])
 
-    res, err = run(["git", "clone", "--depth=1", remote_url, temp_repo])
+        log.info(res)
 
-    log.info(res)
-
-    if err:
-        log.error(err)
+        if err:
+            log.error(err)
 
         if "fatal" in err:
             log.critical(err)

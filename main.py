@@ -42,7 +42,7 @@ def main():
     checkout_repo(REMOTE_URL)
     git_config(GIT_USER, GIT_EMAIL)
 
-    NO_OF_COMMITS = float(os.getenv("NO_OF_COMMITS", math.inf))
+    NO_OF_COMMITS = float(os.getenv("NO_OF_COMMITS", 1))
 
     now_ = now(timedelta(hours=5, minutes=30))
 
@@ -59,7 +59,7 @@ def main():
         ["rm", "-rf", "requirements.txt"],
         ["rm", "-rf", "main.py"],
         ["git", "add", "."],
-        ["git", "commit", "-m", "removed unnecessary files"]
+        ["git", "commit",GIT_COMMIT_ARGS ,"-m", "removed unnecessary files"]
     ]
 
     print("cleaning unnecessary files")
@@ -68,6 +68,7 @@ def main():
     push_thread.start()
 
     for cmd in remove_cmds:
+        print(f"cmd is {cmd}")
         res, err = run(cmd)
         log.info(res)
         log.error(err)
@@ -85,7 +86,7 @@ def main():
 
         commands = [
             ["git", "add", "time.txt"],
-            ["git", "commit", "-m", commit_msg],
+            ["git", "commit" , "-m", commit_msg, GIT_COMMIT_ARGS],
         ]
 
         for cmd in commands:

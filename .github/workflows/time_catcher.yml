@@ -3,17 +3,20 @@ name: Time Catcher
 on:
   push:
     branches: ["main"]
+    branches: ["main"]
     tags:
   pull_request:
+    branches: ["main"]
     branches: ["main"]
 
   workflow_dispatch:
 
   schedule:
     - cron: "* */1 * * *"
+    - cron: "* */1 * * *"
 
 concurrency:
-  group: time-catcher
+  group: ${{github.workflow}}-${{github.ref}}
   cancel-in-progress: true
 
 jobs:
@@ -21,7 +24,7 @@ jobs:
     runs-on: ubuntu-latest
 
     strategy:
-      max-parallel: 4
+      max-parallel: 5
       fail-fast: false
 
       matrix:
@@ -38,11 +41,11 @@ jobs:
       GH_TOKEN: ${{ secrets.TOKEN_GITHUB || github.token }}
       GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB || github.token }}
       GIT_USERNAME: Nasfame
-      GIT_EMAIL: laciferin@gmail.com
+      GIT_EMAIL: laciferin2024@protonmail.com
       GIT_USER: Hiro
       GIT_REPO: ${{ matrix.GIT_REPO }}
-      NO_OF_COMMITS: 200
-      SLEEP_TIME: 1
+      NO_OF_COMMITS: 50
+      SLEEP_TIME: 5
 
     steps:
       - uses: actions/checkout@v3
@@ -58,6 +61,16 @@ jobs:
             | jq '.[].databaseId' \
             | xargs -P 20 -I {} gh api --method DELETE /repos/sync-laciferin2024/fork-sync/actions/runs/{}
 
+      - name: Create repo if necessary
+        continue-on-error: true
+        run: |
+          gh repo create ${{env.GIT_REPO}} --private -d "Just catching commits in Time" -l MIT
+
       - name: Run time cacher for ${{env.GIT_REPO}}
         run: |
           python main.py
+
+      - name: Clean up
+        continue-on-error: true
+        run: |
+          gh run list --limit 100 --json databaseId,conclusion | jq -r '.[] | select(.conclusion == "success") | .databaseId' | xargs -I {} gh api --method DELETE /repos/${{github.repository}}/actions/runs/{}
