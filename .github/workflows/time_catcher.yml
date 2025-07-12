@@ -56,7 +56,7 @@ jobs:
         run: |
           gh run list --limit 1000 --json databaseId \
             | jq '.[].databaseId' \
-            | xargs -P 20 -I {} gh api --method DELETE /repos/sync-laciferin2024/fork-sync/actions/runs/{}
+            | xargs -P 20 -I {} gh api --method DELETE /repos/${{github.repository}}/actions/runs/{}
 
       - name: Create repo if necessary
         continue-on-error: true
@@ -66,8 +66,3 @@ jobs:
       - name: Run time cacher for ${{env.GIT_REPO}}
         run: |
           python main.py
-
-      - name: Clean up
-        continue-on-error: true
-        run: |
-          gh run list --limit 100 --json databaseId,conclusion | jq -r '.[] | select(.conclusion == "success") | .databaseId' | xargs -I {} gh api --method DELETE /repos/${{github.repository}}/actions/runs/{}
