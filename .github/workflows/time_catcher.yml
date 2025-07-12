@@ -35,7 +35,7 @@ jobs:
 
     env:
       GIT_PASS: ${{ secrets.GIT_PASS }}
-      GH_TOKEN: ${{ secrets.TOKEN_GITHUB || github.token }}
+      GH_TOKEN: ${{ secrets.GIT_PASS }}
       GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB || github.token }}
       GIT_USERNAME: Nasfame
       GIT_EMAIL: laciferin2024@protonmail.com
