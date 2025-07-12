@@ -2,15 +2,15 @@ name: Time Catcher
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
     tags:
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
 
   workflow_dispatch:
 
   schedule:
-    - cron: '* */1 * * *'
+    - cron: "* */1 * * *"
 
 concurrency:
   group: time-catcher
@@ -32,10 +32,11 @@ jobs:
           - funFame/__time
           - funFame/_time_2023
           - funFame/__time_2023
-          
 
     env:
       GIT_PASS: ${{ secrets.GIT_PASS }}
+      GH_TOKEN: ${{ secrets.TOKEN_GITHUB || github.token }}
+      GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB || github.token }}
       GIT_USERNAME: Nasfame
       GIT_EMAIL: laciferin@gmail.com
       GIT_USER: Hiro
@@ -54,3 +55,8 @@ jobs:
       - name: Run time cacher for ${{env.GIT_REPO}}
         run: |
           python main.py
+
+      - name: Clean up
+        continue-on-error: true
+        run: |
+          gh run list --limit 100 --json databaseId,conclusion | jq -r '.[] | select(.conclusion == "success") | .databaseId' | xargs -I {} gh api --method DELETE /repos/${{github.repository}}/actions/runs/{}
